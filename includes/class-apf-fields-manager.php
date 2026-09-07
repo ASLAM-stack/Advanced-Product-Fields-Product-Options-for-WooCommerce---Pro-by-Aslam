@@ -97,6 +97,12 @@ class APF_Fields_Manager {
 				'category'    => 'advanced',
 				'has_options' => false,
 			),
+			'products'     => array(
+				'label'       => __( 'Recommended Products (Pro)', 'apf-aslam' ),
+				'icon'        => 'fa-basket-shopping',
+				'category'    => 'advanced',
+				'has_options' => false,
+			),
 			'section'      => array(
 				'label'       => __( 'Section Header / Divider', 'apf-aslam' ),
 				'icon'        => 'fa-heading',
@@ -263,6 +269,43 @@ class APF_Fields_Manager {
 			$len = function_exists( 'mb_strlen' ) ? mb_strlen( (string) $value, 'UTF-8' ) : strlen( (string) $value );
 			if ( ! empty( $field['max_length'] ) && $len > absint( $field['max_length'] ) ) {
 				return new WP_Error( 'apf_max_len', sprintf( __( '"%s" cannot exceed %d characters.', 'apf-aslam' ), esc_html( $label ), $field['max_length'] ) );
+			}
+		}
+
+		// 4. Products / Recommended products validation (min 0, max 6 by default).
+		if ( in_array( $field['type'], array( 'products', 'recommended_products' ), true ) ) {
+			$selected_count = 0;
+			if ( is_array( $value ) ) {
+				$selected_count = count( array_filter( $value ) );
+			} elseif ( ! empty( $value ) ) {
+				$selected_count = 1;
+			}
+
+			$min_products = isset( $field['min_products'] ) && '' !== $field['min_products'] ? absint( $field['min_products'] ) : 0;
+			$max_products = isset( $field['max_products'] ) && '' !== $field['max_products'] ? absint( $field['max_products'] ) : 6;
+
+			if ( $min_products > 0 && $selected_count < $min_products ) {
+				return new WP_Error(
+					'apf_min_products',
+					sprintf(
+						/* translators: 1: Field label, 2: Minimum count */
+						__( '"%1$s" requires at least %2$d product(s) to be selected.', 'apf-aslam' ),
+						esc_html( $label ),
+						$min_products
+					)
+				);
+			}
+
+			if ( $max_products > 0 && $selected_count > $max_products ) {
+				return new WP_Error(
+					'apf_max_products',
+					sprintf(
+						/* translators: 1: Field label, 2: Maximum count */
+						__( '"%1$s" allows at most %2$d product(s) to be selected.', 'apf-aslam' ),
+						esc_html( $label ),
+						$max_products
+					)
+				);
 			}
 		}
 

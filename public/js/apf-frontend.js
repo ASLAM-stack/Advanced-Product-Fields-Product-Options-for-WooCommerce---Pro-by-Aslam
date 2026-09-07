@@ -105,6 +105,12 @@
 					return '';
 				case 'file_upload':
 					return $wrap.find('.apf-uploaded-file-data').val();
+				case 'products':
+				case 'recommended_products':
+					var $prods = $wrap.find('input[type="checkbox"]:checked');
+					var prodVals = [];
+					$prods.each(function() { prodVals.push($(this).val()); });
+					return prodVals;
 				default:
 					return '';
 			}
@@ -207,6 +213,13 @@
 			} else if (type === 'checkbox') {
 				$wrap.find('input[type="checkbox"]').prop('checked', false);
 				$wrap.find('.selected').removeClass('selected');
+			} else if (type === 'products' || type === 'recommended_products') {
+				$wrap.find('input[type="checkbox"]').prop('checked', false);
+				$wrap.find('.apf-product-card').removeClass('selected');
+				var maxP = parseInt($wrap.data('max-products')) || 6;
+				var selWord = (typeof apfParams !== 'undefined' && apfParams.i18n && apfParams.i18n.selected) ? apfParams.i18n.selected : 'Selected';
+				$wrap.find('.apf-prod-selection-count').text('0 / ' + maxP + ' ' + selWord);
+				$wrap.find('.apf-max-products-alert').hide();
 			} else if (type === 'stepper') {
 				var min = parseFloat($wrap.data('min')) || 0;
 				$wrap.find('.apf-stepper-input').val(min);
@@ -278,6 +291,21 @@
 						var chkName = $chk.closest('label').find('.apf-card-label').text().trim() || $chk.data('label') || label;
 						if (delta !== 0) {
 							breakdownList.push({ name: chkName, price: delta });
+						}
+					});
+				}
+
+				// 3b. Recommended Products (0 to 6 items)
+				if (type === 'products' || type === 'recommended_products') {
+					$wrap.find('.apf-rec-prod-checkbox:checked').each(function() {
+						var $chk = $(this);
+						var pPrice = parseFloat($chk.data('price')) || 0.0;
+						optionsTotal += pPrice;
+						var prodName = $chk.data('label') || $chk.closest('.apf-product-card').find('.apf-prod-title').text().trim();
+						if (pPrice !== 0) {
+							breakdownList.push({ name: label + ': ' + prodName, price: pPrice });
+						} else {
+							breakdownList.push({ name: label + ': ' + prodName + ' (Free)', price: 0 });
 						}
 					});
 				}
@@ -422,6 +450,39 @@
 			} else if ($input.is(':checkbox')) {
 				$card.toggleClass('selected', $input.is(':checked'));
 			}
+
+			runConditionalLogic();
+			calculateLiveTotals();
+		});
+
+		// 7b. Recommended Products Selection & Limit Enforcement (Min 0, Max 6)
+		$(document).on('change', '.apf-rec-prod-checkbox', function(e) {
+			var $chk = $(this);
+			var $card = $chk.closest('.apf-product-card');
+			var $wrap = $chk.closest('.apf-type-products');
+			var maxLimit = parseInt($wrap.data('max-products')) || 6;
+			var checkedCount = $wrap.find('.apf-rec-prod-checkbox:checked').length;
+			var $alert = $wrap.find('.apf-max-products-alert');
+
+			if (checkedCount > maxLimit) {
+				$chk.prop('checked', false);
+				$card.removeClass('selected');
+				$alert.stop(true, true).fadeIn(200).addClass('apf-shake');
+				setTimeout(function() {
+					$alert.removeClass('apf-shake');
+				}, 500);
+				setTimeout(function() {
+					$alert.fadeOut(300);
+				}, 3500);
+				checkedCount = maxLimit;
+			} else {
+				$alert.hide();
+				$card.toggleClass('selected', $chk.is(':checked'));
+			}
+
+			// Update live selection count badge
+			var selectedWord = (typeof apfParams !== 'undefined' && apfParams.i18n && apfParams.i18n.selected) ? apfParams.i18n.selected : 'Selected';
+			$wrap.find('.apf-prod-selection-count').text(checkedCount + ' / ' + maxLimit + ' ' + selectedWord);
 
 			runConditionalLogic();
 			calculateLiveTotals();
@@ -591,6 +652,17 @@
 				}
 			}
 		});
+
+		// Initialize Recommended Products Count
+		$('.apf-type-products').each(function() {
+			var $wrap = $(this);
+			var maxLimit = parseInt($wrap.data('max-products')) || 6;
+			var checkedCount = $wrap.find('.apf-rec-prod-checkbox:checked').length;
+			$wrap.find('.apf-rec-prod-checkbox:checked').closest('.apf-product-card').addClass('selected');
+			var selectedWord = (typeof apfParams !== 'undefined' && apfParams.i18n && apfParams.i18n.selected) ? apfParams.i18n.selected : 'Selected';
+			$wrap.find('.apf-prod-selection-count').text(checkedCount + ' / ' + maxLimit + ' ' + selectedWord);
+		});
+
 		runConditionalLogic();
 		calculateLiveTotals();
 

@@ -79,6 +79,7 @@
 			var type = $select.val();
 			var $card = $select.closest('.apf-field-card');
 			var $optTab = $card.find('.tab-options-link');
+			var $prodTab = $card.find('.tab-products-link');
 			var typeText = $select.find('option:selected').text().trim();
 
 			// Update badge text
@@ -94,11 +95,29 @@
 				}
 			}
 
+			// Show/hide recommended products tab
+			var isProducts = (type === 'products' || type === 'recommended_products');
+			if (isProducts) {
+				$prodTab.show();
+			} else {
+				$prodTab.hide();
+				if ($prodTab.hasClass('active')) {
+					$card.find('.apf-card-tabs li[data-tab="general"]').trigger('click');
+				}
+			}
+
 			// Show/hide swatch visual column in options table
 			var isSwatch = (type === 'color_swatch' || type === 'image_swatch');
 			$card.find('.col-option-visual').toggle(isSwatch);
 			$card.find('.visual-color-wrap').toggle(type === 'color_swatch');
 			$card.find('.visual-image-wrap').toggle(type === 'image_swatch');
+		});
+
+		// 6b. Recommended Products Pricing Mode Toggle
+		$(document).on('change', '.apf-rec-pricing-mode', function() {
+			var mode = $(this).val();
+			var $wrap = $(this).closest('.apf-tab-pane').find('.apf-rec-pricing-amount-group');
+			$wrap.toggle(mode === 'discount_pct' || mode === 'flat');
 		});
 
 		// 7. Pricing Type Change Handler

@@ -321,7 +321,7 @@ class APF_Cart {
 	 * @param mixed $val Submitted value.
 	 * @return string Formatted display text.
 	 */
-	private function format_option_display_value( $field, $val ) {
+	public function format_option_display_value( $field, $val ) {
 		$type = $field['type'] ?? 'text';
 
 		if ( in_array( $type, array( 'select', 'radio', 'color_swatch', 'image_swatch' ), true ) ) {
@@ -376,6 +376,26 @@ class APF_Cart {
 
 		if ( 'stepper' === $type ) {
 			return esc_html( $val ) . ' ' . esc_html__( 'qty', 'apf-aslam' );
+		}
+
+		if ( in_array( $type, array( 'products', 'recommended_products' ), true ) ) {
+			$product_ids = is_array( $val ) ? $val : array( $val );
+			$items       = array();
+
+			foreach ( $product_ids as $p_id ) {
+				$p_id = absint( $p_id );
+				if ( ! $p_id ) {
+					continue;
+				}
+				$rec_product = function_exists( 'wc_get_product' ) ? wc_get_product( $p_id ) : null;
+				if ( $rec_product ) {
+					$items[] = $rec_product->get_name() . ' (' . wc_price( $rec_product->get_price() ) . ')';
+				} else {
+					$items[] = '#' . $p_id;
+				}
+			}
+
+			return ! empty( $items ) ? implode( ', ', $items ) : esc_html( (string) ( is_array( $val ) ? implode( ', ', $val ) : $val ) );
 		}
 
 		return esc_html( (string) $val );

@@ -14,6 +14,11 @@ $field_type  = $field_data['type'] ?? 'text';
 $field_label = ! empty( $field_data['label'] ) ? $field_data['label'] : __( '(Untitled Field)', 'apf-aslam' );
 $field_types = APF_Fields_Manager::get_field_types();
 $has_options = in_array( $field_type, array( 'select', 'radio', 'checkbox', 'color_swatch', 'image_swatch' ), true );
+$is_products = in_array( $field_type, array( 'products', 'recommended_products' ), true );
+$rec_products_selected = $field_data['recommended_product_ids'] ?? array();
+if ( ! is_array( $rec_products_selected ) ) {
+	$rec_products_selected = array();
+}
 ?>
 
 <div class="apf-field-card" data-field-id="<?php echo esc_attr( $field_id ); ?>">
@@ -54,6 +59,7 @@ $has_options = in_array( $field_type, array( 'select', 'radio', 'checkbox', 'col
 		<ul class="apf-card-tabs">
 			<li class="active" data-tab="general"><i class="fa-solid fa-gear"></i> <?php esc_html_e( 'General', 'apf-aslam' ); ?></li>
 			<li class="tab-options-link" data-tab="options" <?php echo ! $has_options ? 'style="display:none;"' : ''; ?>><i class="fa-solid fa-list-check"></i> <?php esc_html_e( 'Options / Choices', 'apf-aslam' ); ?></li>
+			<li class="tab-products-link" data-tab="products" <?php echo ! $is_products ? 'style="display:none;"' : ''; ?>><i class="fa-solid fa-basket-shopping"></i> <?php esc_html_e( 'Recommended Products', 'apf-aslam' ); ?></li>
 			<li data-tab="pricing"><i class="fa-solid fa-tag"></i> <?php esc_html_e( 'Pricing', 'apf-aslam' ); ?></li>
 			<li data-tab="conditions"><i class="fa-solid fa-code-branch"></i> <?php esc_html_e( 'Conditional Logic', 'apf-aslam' ); ?></li>
 			<li data-tab="advanced"><i class="fa-solid fa-sliders"></i> <?php esc_html_e( 'Validation & Limits', 'apf-aslam' ); ?></li>
@@ -179,6 +185,65 @@ $has_options = in_array( $field_type, array( 'select', 'radio', 'checkbox', 'col
 						<button type="button" class="button button-secondary apf-btn-add-option">
 							<i class="fa-solid fa-plus"></i> <?php esc_html_e( 'Add Another Option', 'apf-aslam' ); ?>
 						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 2B. RECOMMENDED PRODUCTS CONFIGURATION TAB (Pro) -->
+			<div class="apf-tab-pane" data-pane="products">
+				<div class="apf-form-row apf-col-2">
+					<div class="apf-form-group">
+						<label><?php esc_html_e( 'Minimum Selection Allowed', 'apf-aslam' ); ?></label>
+						<input type="number" min="0" max="6" name="apf_fields[<?php echo esc_attr( $field_id ); ?>][min_products]" value="<?php echo esc_attr( $field_data['min_products'] ?? 0 ); ?>" class="widefat" placeholder="0">
+						<span class="description"><?php esc_html_e( 'Default is 0 (customer can select none).', 'apf-aslam' ); ?></span>
+					</div>
+					<div class="apf-form-group">
+						<label><?php esc_html_e( 'Maximum Selection Allowed', 'apf-aslam' ); ?></label>
+						<input type="number" min="1" max="12" name="apf_fields[<?php echo esc_attr( $field_id ); ?>][max_products]" value="<?php echo esc_attr( $field_data['max_products'] ?? 6 ); ?>" class="widefat" placeholder="6">
+						<span class="description"><?php esc_html_e( 'Default is 6 (user can select up to 6 products).', 'apf-aslam' ); ?></span>
+					</div>
+				</div>
+
+				<div class="apf-form-row apf-col-2">
+					<div class="apf-form-group">
+						<label><?php esc_html_e( 'Product Pricing Mode', 'apf-aslam' ); ?></label>
+						<select name="apf_fields[<?php echo esc_attr( $field_id ); ?>][product_pricing_mode]" class="apf-rec-pricing-mode widefat">
+							<option value="regular" <?php selected( $field_data['product_pricing_mode'] ?? 'regular', 'regular' ); ?>><?php esc_html_e( 'Product Regular / Sale Price (Default)', 'apf-aslam' ); ?></option>
+							<option value="discount_pct" <?php selected( $field_data['product_pricing_mode'] ?? '', 'discount_pct' ); ?>><?php esc_html_e( 'Percentage Discount (%)', 'apf-aslam' ); ?></option>
+							<option value="flat" <?php selected( $field_data['product_pricing_mode'] ?? '', 'flat' ); ?>><?php esc_html_e( 'Custom Flat Fee (+/-)', 'apf-aslam' ); ?></option>
+							<option value="free" <?php selected( $field_data['product_pricing_mode'] ?? '', 'free' ); ?>><?php esc_html_e( 'Free / Included ($0.00)', 'apf-aslam' ); ?></option>
+						</select>
+					</div>
+					<div class="apf-form-group apf-rec-pricing-amount-group">
+						<label><?php esc_html_e( 'Discount Percentage or Flat Amount', 'apf-aslam' ); ?></label>
+						<input type="number" step="0.01" name="apf_fields[<?php echo esc_attr( $field_id ); ?>][product_pricing_amount]" value="<?php echo esc_attr( $field_data['product_pricing_amount'] ?? 0 ); ?>" class="widefat" placeholder="0.00">
+						<span class="description"><?php esc_html_e( 'e.g. 10 for 10% combo discount, or 2.50 for fixed add-on rate.', 'apf-aslam' ); ?></span>
+					</div>
+				</div>
+
+				<div class="apf-form-row">
+					<div class="apf-form-group">
+						<label><?php esc_html_e( 'Select Products to Recommend (Hold Ctrl/Cmd to select multiple):', 'apf-aslam' ); ?></label>
+						<select name="apf_fields[<?php echo esc_attr( $field_id ); ?>][recommended_product_ids][]" multiple="multiple" class="widefat apf-rec-products-select" style="min-height: 140px;">
+							<?php
+							$all_products = function_exists( 'wc_get_products' ) ? wc_get_products( array( 'limit' => 100, 'status' => 'publish' ) ) : array();
+							if ( ! empty( $all_products ) ) :
+								foreach ( $all_products as $p ) :
+									$p_id    = $p->get_id();
+									$is_sel  = in_array( $p_id, array_map( 'absint', $rec_products_selected ), true );
+									$p_price = function_exists( 'wc_price' ) ? wc_price( $p->get_price() ) : '$' . $p->get_price();
+							?>
+									<option value="<?php echo esc_attr( $p_id ); ?>" <?php selected( $is_sel ); ?>>
+										#<?php echo esc_html( $p_id ); ?> — <?php echo esc_html( $p->get_name() ); ?> (<?php echo wp_strip_all_tags( $p_price ); ?>)
+									</option>
+							<?php 
+								endforeach; 
+							else :
+							?>
+								<option value="" disabled><?php esc_html_e( 'No published products found.', 'apf-aslam' ); ?></option>
+							<?php endif; ?>
+						</select>
+						<span class="description"><?php esc_html_e( 'Leave unselected to automatically recommend up to 6 latest products from your store.', 'apf-aslam' ); ?></span>
 					</div>
 				</div>
 			</div>

@@ -729,3 +729,255 @@
 	transform: scale(1.1);
 	color: var(--apf-accent) !important;
 }
+
+/* ==========================================================================
+   Recommended Products (Pro) - Fast Food Restaurant Barab Styling
+   ========================================================================== */
+
+.apf-type-products {
+	margin-bottom: 25px;
+}
+
+.apf-products-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.apf-products-meta-info {
+	display: flex;
+	align-items: center;
+}
+
+.apf-prod-selection-count {
+	background: var(--apf-badge-bg);
+	color: var(--apf-text);
+	font-family: var(--apf-font-heading);
+	font-size: 13px;
+	font-weight: 700;
+	padding: 4px 14px;
+	border-radius: var(--apf-radius);
+	border: 1px solid rgba(235, 20, 0, 0.15);
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+/* Max Limit Warning Alert */
+.apf-max-products-alert {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: #FFF1F0;
+	border: 1.5px solid #FFCCC7;
+	color: #CF1322;
+	padding: 9px 15px;
+	border-radius: 12px;
+	font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 12px;
+}
+
+.apf-max-products-alert.apf-shake {
+	animation: apfShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes apfShake {
+	10%, 90% { transform: translate3d(-1px, 0, 0); }
+	20%, 80% { transform: translate3d(2px, 0, 0); }
+	30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+	40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Recommended Products Grid */
+.apf-recommended-products-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 14px;
+	margin-top: 6px;
+}
+
+@media (max-width: 540px) {
+	.apf-recommended-products-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Product Card */
+.apf-product-card {
+	display: block;
+	cursor: pointer;
+	margin: 0;
+	position: relative;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.apf-rec-prod-checkbox {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+	margin: 0;
+}
+
+.apf-prod-card-inner {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	background-color: var(--apf-bg);
+	border: 2px solid transparent;
+	border-radius: 18px;
+	padding: 10px 14px;
+	transition: all 0.25s ease-in-out;
+}
+
+.apf-product-card:hover .apf-prod-card-inner {
+	border-color: rgba(235, 20, 0, 0.35);
+	background-color: #FAF5E6;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.apf-product-card.selected .apf-prod-card-inner {
+	background-color: #ffffff;
+	border-color: var(--apf-primary);
+	box-shadow: 0 5px 15px rgba(235, 20, 0, 0.12);
+}
+
+/* Product Thumbnail */
+.apf-prod-thumb-wrap {
+	width: 60px;
+	height: 60px;
+	min-width: 60px;
+	border-radius: 12px;
+	overflow: hidden;
+	background: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.apf-prod-thumb {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+}
+
+.apf-product-card:hover .apf-prod-thumb {
+	transform: scale(1.08);
+}
+
+.apf-prod-placeholder {
+	color: #a0a0a0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Product Details */
+.apf-prod-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.apf-prod-title {
+	margin: 0 0 3px 0;
+	font-family: var(--apf-font-heading);
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--apf-text);
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 1.2;
+}
+
+.apf-prod-pricing {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	line-height: 1.2;
+}
+
+.apf-rec-price-final {
+	font-family: var(--apf-font-heading);
+	font-weight: 800;
+	font-size: 15px;
+	color: var(--apf-secondary);
+}
+
+.apf-rec-price-old {
+	color: #8c8f94;
+	text-decoration: line-through;
+	font-size: 12px;
+}
+
+.apf-rec-price-free {
+	font-family: var(--apf-font-heading);
+	font-weight: 800;
+	background: var(--apf-secondary);
+	color: #ffffff;
+	font-size: 11px;
+	padding: 2px 8px;
+	border-radius: var(--apf-radius);
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+.apf-rec-discount-badge {
+	background: var(--apf-primary);
+	color: #ffffff;
+	font-size: 11px;
+	font-weight: 700;
+	padding: 2px 6px;
+	border-radius: 4px;
+	line-height: 1.1;
+}
+
+/* Action Checkmark / Plus Button */
+.apf-prod-action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.apf-prod-toggle-btn {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: 2px solid #C4C4C4;
+	background: #ffffff;
+	color: #8c8f94;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease-in-out;
+}
+
+.apf-prod-toggle-btn .apf-icon-plus {
+	display: block;
+}
+
+.apf-prod-toggle-btn .apf-icon-check {
+	display: none;
+}
+
+.apf-product-card.selected .apf-prod-toggle-btn {
+	background: var(--apf-primary);
+	border-color: var(--apf-primary);
+	color: #ffffff;
+	box-shadow: 0 2px 6px rgba(235, 20, 0, 0.35);
+}
+
+.apf-product-card.selected .apf-prod-toggle-btn .apf-icon-plus {
+	display: none;
+}
+
+.apf-product-card.selected .apf-prod-toggle-btn .apf-icon-check {
+	display: block;
+}

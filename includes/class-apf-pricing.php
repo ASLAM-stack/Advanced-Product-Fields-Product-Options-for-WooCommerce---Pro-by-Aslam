@@ -80,7 +80,46 @@ class APF_Pricing {
 			}
 		}
 
-		// 3. Stepper field (quantity multiplier).
+		// 3. Recommended Products field (Pro).
+		if ( in_array( $type, array( 'products', 'recommended_products' ), true ) ) {
+			$product_ids     = is_array( $value ) ? $value : array( $value );
+			$pricing_mode    = $field['product_pricing_mode'] ?? ( $field['pricing_type'] ?? 'regular' );
+			$override_amount = floatval( $field['product_pricing_amount'] ?? ( $field['pricing_amount'] ?? 0 ) );
+
+			foreach ( $product_ids as $p_id ) {
+				$p_id = absint( $p_id );
+				if ( ! $p_id ) {
+					continue;
+				}
+				$rec_product = function_exists( 'wc_get_product' ) ? wc_get_product( $p_id ) : null;
+				if ( ! $rec_product ) {
+					continue;
+				}
+
+				$p_price = (float) $rec_product->get_price();
+
+				switch ( $pricing_mode ) {
+					case 'free':
+						$total_price_delta += 0.0;
+						break;
+					case 'flat':
+						$total_price_delta += $override_amount;
+						break;
+					case 'discount_pct':
+						$discounted = max( 0.0, $p_price * ( 1.0 - ( $override_amount / 100.0 ) ) );
+						$total_price_delta += $discounted;
+						break;
+					case 'regular':
+					default:
+						$total_price_delta += $p_price;
+						break;
+				}
+			}
+
+			return $total_price_delta;
+		}
+
+		// 4. Stepper field (quantity multiplier).
 		if ( 'stepper' === $type ) {
 			$qty_count = max( 0, floatval( $value ) );
 			$unit_rate = floatval( $field['pricing_amount'] ?? 0 );

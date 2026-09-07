@@ -657,3 +657,23 @@ input:checked + .apf-slider:before {
 	color: #eb1400;
 	font-size: 18px;
 }
+
+/* Recommended Products Admin Styles */
+.apf-rec-products-select {
+	font-family: inherit;
+	border: 1px solid #8c8f94;
+	border-radius: 4px;
+	padding: 6px;
+	background: #fff;
+}
+
+.apf-rec-products-select option {
+	padding: 6px 10px;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.apf-rec-products-select option:checked {
+	background: #eb1400 linear-gradient(0deg, #eb1400 0%, #eb1400 100%);
+	color: #fff;
+	font-weight: 600;
+}
