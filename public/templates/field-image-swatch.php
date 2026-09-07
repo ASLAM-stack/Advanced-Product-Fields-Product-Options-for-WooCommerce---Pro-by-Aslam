@@ -36,7 +36,7 @@ $def_val  = $field['default_value'] ?? '';
 				$opt_ptype = $opt['pricing_type'] ?? 'flat';
 				$img_url   = $opt['image_url'] ?? '';
 				$opt_label = ! empty( $opt['label'] ) ? $opt['label'] : ( $opt['value'] ?? '' );
-				$badge     = APF_Pricing::format_price_badge( $opt_ptype, $opt_price );
+				$badge     = APF_Pricing::format_price_badge( $opt_ptype, $opt_price, true );
 				$is_chk    = ( (string) $opt['value'] === (string) $def_val );
 			?>
 				<label class="apf-swatch-item apf-image-item <?php echo $is_chk ? 'selected' : ''; ?>" for="<?php echo esc_attr( $opt_id ); ?>" title="<?php echo esc_attr( $opt_label ); ?>">

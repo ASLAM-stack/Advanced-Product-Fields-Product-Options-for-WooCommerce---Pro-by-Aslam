@@ -55,10 +55,37 @@
 }
 
 .apf-choice-card.selected .apf-price-badge,
-.apf-swatch-item.selected .apf-price-badge {
+.apf-choice-card:has(input:checked) .apf-price-badge {
 	background: rgba(255, 255, 255, 0.25);
 	color: #ffffff;
 }
+
+/* Swatch Item Price Badges (Color Swatches & Image Swatches) */
+.apf-swatch-item .apf-price-badge {
+	margin-left: 0;
+	margin-top: 4px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--apf-font-heading);
+	font-size: 13px;
+	font-weight: 700;
+	padding: 3px 10px;
+	border-radius: 50px;
+	background: var(--apf-badge-bg);
+	color: var(--apf-secondary);
+	transition: all 0.2s ease;
+	line-height: 1.2;
+}
+
+.apf-swatch-item.selected .apf-price-badge,
+.apf-swatch-item:has(input:checked) .apf-price-badge {
+	background: #FDE1B9 !important;
+	color: var(--apf-primary) !important;
+	font-weight: 800;
+	box-shadow: 0 2px 8px rgba(235, 20, 0, 0.2);
+}
+
 
 /* Form Controls (Inputs, Textarea, Select) */
 .apf-input {
@@ -244,12 +271,16 @@
 }
 
 .apf-color-item {
+	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 6px;
-	padding: 8px;
+	padding: 8px 6px;
 	border-radius: 16px;
 	background: transparent;
 	transition: all 0.2s;
+	min-width: 76px;
+	text-align: center;
 }
 
 .apf-color-item:hover {

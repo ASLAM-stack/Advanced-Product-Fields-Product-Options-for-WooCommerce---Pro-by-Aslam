@@ -293,11 +293,20 @@ class APF_Pricing {
 	 *
 	 * @param string $type Pricing type.
 	 * @param float  $amount Pricing amount.
-	 * @return string Formatted price tag HTML (e.g. "+ $2.50").
+	 * @param bool   $show_zero Whether to show badge if amount is 0.00 (e.g. for swatches and choice cards).
+	 * @return string Formatted price tag HTML (e.g. "+ $2.50" or "+ $0.00").
 	 */
-	public static function format_price_badge( $type, $amount ) {
-		if ( 'none' === $type || 0.0 == $amount ) {
+	public static function format_price_badge( $type, $amount, $show_zero = false ) {
+		if ( 'none' === $type ) {
 			return '';
+		}
+
+		if ( 0.0 == (float) $amount ) {
+			if ( ! $show_zero ) {
+				return '';
+			}
+			$formatted = function_exists( 'wc_price' ) ? wc_price( 0 ) : '$0.00';
+			return '<span class="apf-price-badge apf-price-zero">+ ' . $formatted . '</span>';
 		}
 
 		$is_negative = $amount < 0;
@@ -308,7 +317,7 @@ class APF_Pricing {
 			return '<span class="apf-price-badge">' . $sign . ' ' . esc_html( $abs_amount ) . '%</span>';
 		}
 
-		$formatted = wc_price( $abs_amount );
+		$formatted = function_exists( 'wc_price' ) ? wc_price( $abs_amount ) : '$' . number_format( $abs_amount, 2 );
 		return '<span class="apf-price-badge">' . $sign . ' ' . $formatted . '</span>';
 	}
 }
