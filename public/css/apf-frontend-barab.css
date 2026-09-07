@@ -1,0 +1,677 @@
+/**
+ * Advanced Product Fields by Aslam - Barab Theme Styling
+ *
+ * Implements the authentic Barab Fast Food Restaurant visual design system.
+ */
+
+:root {
+	--apf-primary: #EB1400;
+	--apf-secondary: #3F9065;
+	--apf-accent: #FF9924;
+	--apf-bg: #F7F2E2;
+	--apf-border: #E4E4E4;
+	--apf-text: #121212;
+	--apf-body-text: #6C6C6C;
+	--apf-badge-bg: #FDE1B9;
+	--apf-radius: 50px;
+	--apf-font-heading: 'Barlow Condensed', sans-serif;
+	--apf-font-body: 'Inter', sans-serif;
+}
+
+/* Container & Typography */
+.apf-fields-container.barab-theme-wrap {
+	font-family: var(--apf-font-body);
+	color: var(--apf-text);
+}
+
+.apf-label-text {
+	font-family: var(--apf-font-heading);
+	font-size: 17px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: var(--apf-text);
+}
+
+.apf-description {
+	color: var(--apf-body-text);
+	font-family: var(--apf-font-body);
+	font-size: 13px;
+}
+
+/* Price Badges */
+.apf-price-badge {
+	background: var(--apf-badge-bg);
+	color: var(--apf-secondary);
+	font-family: var(--apf-font-heading);
+	font-size: 13px;
+	font-weight: 700;
+	padding: 3px 10px;
+	border-radius: 50px;
+	margin-left: 6px;
+	display: inline-flex;
+	align-items: center;
+	line-height: 1.2;
+}
+
+.apf-choice-card.selected .apf-price-badge,
+.apf-swatch-item.selected .apf-price-badge {
+	background: rgba(255, 255, 255, 0.25);
+	color: #ffffff;
+}
+
+/* Form Controls (Inputs, Textarea, Select) */
+.apf-input {
+	width: 100%;
+	height: 56px;
+	padding: 0 25px;
+	background-color: var(--apf-bg);
+	border: 1px solid transparent;
+	border-radius: var(--apf-radius);
+	font-family: var(--apf-font-body);
+	font-size: 15px;
+	color: var(--apf-text);
+	outline: none;
+	transition: all 0.3s ease-in-out;
+}
+
+.apf-input:hover {
+	border-color: rgba(235, 20, 0, 0.3);
+}
+
+.apf-input:focus {
+	background-color: #ffffff;
+	border-color: var(--apf-primary);
+	box-shadow: 0 0 0 4px rgba(235, 20, 0, 0.12);
+	color: var(--apf-text);
+}
+
+.apf-textarea {
+	height: auto;
+	min-height: 100px;
+	padding: 16px 22px;
+	border-radius: 20px;
+	resize: vertical;
+}
+
+/* Select Dropdown */
+.apf-select-wrapper {
+	position: relative;
+}
+
+.apf-select {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-right: 50px;
+	cursor: pointer;
+}
+
+.apf-select-arrow {
+	position: absolute;
+	right: 22px;
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: var(--apf-primary);
+	font-size: 14px;
+	transition: transform 0.2s;
+}
+
+.apf-select:focus + .apf-select-arrow {
+	transform: translateY(-50%) rotate(180deg);
+}
+
+.apf-select-multiple {
+	height: auto;
+	min-height: 120px;
+	padding: 12px 18px;
+	border-radius: 18px;
+}
+
+.apf-select-multiple option {
+	padding: 8px 12px;
+	border-radius: 8px;
+	margin-bottom: 2px;
+	font-family: var(--apf-font-heading);
+	font-weight: 600;
+}
+
+.apf-select-multiple option:checked {
+	background: var(--apf-primary) linear-gradient(0deg, var(--apf-primary) 0%, var(--apf-primary) 100%);
+	color: #ffffff;
+}
+
+/* Radio & Checkbox Cards (Fast-Food Pills) */
+.apf-choice-card input[type="radio"],
+.apf-choice-card input[type="checkbox"],
+.apf-swatch-item input[type="radio"],
+.apf-swatch-item input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+.apf-choice-card {
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+	background-color: var(--apf-bg);
+	border: 2px solid transparent;
+	border-radius: var(--apf-radius);
+	padding: 12px 22px;
+	gap: 10px;
+	cursor: pointer;
+	transition: all 0.25s ease;
+	user-select: none;
+}
+
+.apf-choice-card:hover {
+	transform: translateY(-2px);
+	border-color: rgba(235, 20, 0, 0.4);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.apf-card-indicator {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid var(--apf-border);
+	background: #ffffff;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 10px;
+	color: transparent;
+	transition: all 0.2s ease;
+	flex-shrink: 0;
+}
+
+.apf-checkbox-card .apf-card-indicator {
+	border-radius: 6px;
+}
+
+.apf-card-label {
+	font-family: var(--apf-font-heading);
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--apf-text);
+}
+
+/* Selected State for Pills (Supports both class .selected and CSS :has(input:checked)) */
+.apf-choice-card.selected,
+.apf-choice-card:has(input:checked) {
+	background-color: var(--apf-primary);
+	border-color: var(--apf-primary);
+	color: #ffffff;
+	box-shadow: 0 8px 20px rgba(235, 20, 0, 0.28);
+	transform: translateY(-2px);
+}
+
+.apf-choice-card.selected .apf-card-label,
+.apf-choice-card:has(input:checked) .apf-card-label {
+	color: #ffffff;
+}
+
+.apf-choice-card.selected .apf-card-indicator,
+.apf-choice-card:has(input:checked) .apf-card-indicator {
+	background: #ffffff;
+	border-color: #ffffff;
+	color: var(--apf-primary);
+}
+
+.apf-choice-card.selected .apf-price-badge,
+.apf-choice-card:has(input:checked) .apf-price-badge {
+	background: rgba(255, 255, 255, 0.25);
+	color: #ffffff;
+}
+
+/* Color Swatches (Pro) */
+.apf-color-swatches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+}
+
+.apf-color-item {
+	flex-direction: column;
+	gap: 6px;
+	padding: 8px;
+	border-radius: 16px;
+	background: transparent;
+	transition: all 0.2s;
+}
+
+.apf-color-item:hover {
+	transform: scale(1.05);
+}
+
+.apf-color-circle {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+	border: 3px solid #ffffff;
+	position: relative;
+	transition: all 0.2s ease;
+}
+
+.apf-swatch-check {
+	color: #ffffff;
+	font-size: 14px;
+	opacity: 0;
+	transform: scale(0.5);
+	transition: all 0.2s ease;
+	text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.apf-color-item.selected .apf-color-circle,
+.apf-color-item:has(input:checked) .apf-color-circle {
+	box-shadow: 0 0 0 3px var(--apf-primary), 0 6px 15px rgba(235, 20, 0, 0.3);
+}
+
+.apf-color-item.selected .apf-swatch-check,
+.apf-color-item:has(input:checked) .apf-swatch-check {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.apf-swatch-title {
+	font-family: var(--apf-font-heading);
+	font-size: 13px;
+	font-weight: 700;
+	text-align: center;
+	color: var(--apf-text);
+}
+
+/* Image Swatches (Pro) */
+.apf-image-swatches {
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+.apf-image-item {
+	flex-direction: column;
+	background: var(--apf-bg);
+	border: 2px solid transparent;
+	border-radius: 18px;
+	padding: 10px;
+	gap: 8px;
+	text-align: center;
+	transition: all 0.25s ease;
+}
+
+.apf-image-item:hover {
+	border-color: rgba(235, 20, 0, 0.4);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.apf-image-thumb-wrap {
+	width: 100%;
+	height: 80px;
+	border-radius: 12px;
+	overflow: hidden;
+	position: relative;
+	background: #ffffff;
+}
+
+.apf-image-thumb {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.3s;
+}
+
+.apf-image-item:hover .apf-image-thumb {
+	transform: scale(1.08);
+}
+
+.apf-image-placeholder {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	color: var(--apf-primary);
+	background: #fdf5e8;
+}
+
+.apf-image-check-icon {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	width: 22px;
+	height: 22px;
+	background: var(--apf-primary);
+	color: #ffffff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 10px;
+	opacity: 0;
+	transform: scale(0.6);
+	transition: all 0.2s ease;
+}
+
+.apf-image-details {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+}
+
+.apf-image-item.selected,
+.apf-image-item:has(input:checked) {
+	border-color: var(--apf-primary);
+	background: #ffffff;
+	box-shadow: 0 10px 22px rgba(235, 20, 0, 0.15);
+	transform: translateY(-3px);
+}
+
+.apf-image-item.selected .apf-image-check-icon,
+.apf-image-item:has(input:checked) .apf-image-check-icon {
+	opacity: 1;
+	transform: scale(1);
+}
+
+/* Add-on Quantity Stepper (Signature Barab Item) */
+.apf-type-stepper {
+	background: var(--apf-bg);
+	border-radius: var(--apf-radius);
+	padding: 12px 24px;
+	border: 1px solid rgba(0,0,0,0.03);
+}
+
+.apf-stepper-info .apf-label-text {
+	font-size: 16px;
+}
+
+.apf-stepper-unit-price {
+	font-family: var(--apf-font-heading);
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--apf-secondary);
+	margin-left: 8px;
+}
+
+.apf-step-btn {
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	border: none;
+	background-color: var(--apf-badge-bg);
+	color: var(--apf-secondary);
+	font-size: 16px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+}
+
+.apf-step-btn:hover {
+	background-color: var(--apf-primary);
+	color: #ffffff;
+	transform: scale(1.1);
+}
+
+.apf-stepper-input {
+	width: 50px;
+	text-align: center;
+	border: none;
+	background: transparent;
+	font-family: var(--apf-font-heading);
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--apf-text);
+	outline: none;
+}
+
+/* File Upload Dropzone (Pro) */
+.apf-dropzone-box {
+	border: 2px dashed rgba(235, 20, 0, 0.4);
+	border-radius: 20px;
+	background: var(--apf-bg);
+	padding: 25px 20px;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.apf-dropzone-box:hover,
+.apf-dropzone-box.dragover {
+	border-color: var(--apf-primary);
+	background: #ffffff;
+	box-shadow: 0 6px 18px rgba(235, 20, 0, 0.1);
+}
+
+.apf-dropzone-icon {
+	font-size: 36px;
+	color: var(--apf-primary);
+	margin-bottom: 8px;
+}
+
+.apf-dropzone-title strong {
+	font-family: var(--apf-font-heading);
+	font-size: 16px;
+	color: var(--apf-text);
+}
+
+.apf-dropzone-meta {
+	font-size: 12px;
+	color: var(--apf-body-text);
+	margin: 4px 0 0 0;
+}
+
+.apf-upload-progress {
+	margin-top: 15px;
+}
+
+.apf-progress-bar {
+	width: 100%;
+	height: 8px;
+	background: #e4e4e4;
+	border-radius: 50px;
+	overflow: hidden;
+}
+
+.apf-progress-fill {
+	height: 100%;
+	width: 0%;
+	background: var(--apf-primary);
+	transition: width 0.3s;
+}
+
+.apf-progress-text {
+	font-size: 12px;
+	color: var(--apf-primary);
+	font-weight: 600;
+	display: block;
+	margin-top: 6px;
+}
+
+.apf-uploaded-preview {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	background: #ffffff;
+	border: 1px solid var(--apf-border);
+	border-radius: 50px;
+	padding: 8px 16px;
+	margin-top: 10px;
+}
+
+.apf-preview-thumb {
+	color: var(--apf-secondary);
+	font-size: 20px;
+}
+
+.apf-preview-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	font-size: 13px;
+}
+
+.apf-filename {
+	font-weight: 600;
+}
+
+.apf-filesize {
+	font-size: 11px;
+	color: var(--apf-body-text);
+}
+
+.apf-btn-remove-uploaded {
+	background: none;
+	border: none;
+	color: #eb1400;
+	font-size: 18px;
+	cursor: pointer;
+	padding: 0;
+}
+
+/* Section Header / Divider */
+.apf-section-divider {
+	border-bottom: 2px solid var(--apf-bg);
+	padding-bottom: 8px;
+	margin: 10px 0 5px 0;
+}
+
+.apf-section-title {
+	font-family: var(--apf-font-heading);
+	font-size: 20px;
+	font-weight: 800;
+	text-transform: uppercase;
+	color: var(--apf-text);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+}
+
+.apf-section-pill {
+	display: inline-block;
+	width: 6px;
+	height: 20px;
+	background: var(--apf-primary);
+	border-radius: 4px;
+}
+
+.apf-section-desc {
+	font-size: 13px;
+	color: var(--apf-body-text);
+	margin-top: 4px;
+}
+
+/* Live Order Summary / Barab Restaurant Receipt Card */
+.barab-receipt-card {
+	background: #ffffff;
+	border: 2px dashed var(--apf-primary);
+	border-radius: 20px;
+	padding: 20px 24px;
+	margin-top: 25px;
+	box-shadow: 0 10px 30px rgba(235, 20, 0, 0.06);
+}
+
+.apf-receipt-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.apf-receipt-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-family: var(--apf-font-heading);
+	font-size: 18px;
+	font-weight: 800;
+	text-transform: uppercase;
+	color: var(--apf-primary);
+}
+
+.apf-receipt-badge {
+	background: var(--apf-badge-bg);
+	color: var(--apf-text);
+	font-size: 11px;
+	font-weight: 700;
+	padding: 3px 10px;
+	border-radius: 50px;
+	text-transform: uppercase;
+}
+
+.apf-receipt-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 0;
+	font-size: 14px;
+}
+
+.apf-receipt-row .apf-item-name {
+	color: var(--apf-body-text);
+}
+
+.apf-receipt-row .apf-item-cost {
+	font-weight: 700;
+	font-family: var(--apf-font-heading);
+	font-size: 15px;
+	color: var(--apf-text);
+}
+
+.apf-summary-option-line {
+	display: flex;
+	justify-content: space-between;
+	padding: 3px 0;
+	font-size: 13px;
+	color: var(--apf-text);
+}
+
+.apf-summary-option-line .opt-name {
+	font-weight: 500;
+}
+
+.apf-summary-option-line .opt-cost {
+	color: var(--apf-secondary);
+	font-weight: 700;
+}
+
+.apf-receipt-dashed-line {
+	border-top: 1px dashed #dcdcde;
+	margin: 10px 0;
+}
+
+.apf-row-grand-total {
+	border-top: 2px solid var(--apf-bg);
+	padding-top: 12px;
+	margin-top: 6px;
+}
+
+.apf-row-grand-total .apf-item-name strong {
+	font-family: var(--apf-font-heading);
+	font-size: 17px;
+	text-transform: uppercase;
+	color: var(--apf-text);
+}
+
+.apf-grand-total-highlight {
+	font-family: var(--apf-font-heading);
+	font-size: 26px !important;
+	font-weight: 800;
+	color: var(--apf-primary) !important;
+	transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.apf-grand-total-highlight.apf-pulse {
+	transform: scale(1.1);
+	color: var(--apf-accent) !important;
+}

@@ -1,0 +1,125 @@
+/**
+ * Advanced Product Fields by Aslam - Base Structural CSS
+ */
+
+.apf-fields-container {
+	margin: 25px 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.apf-fields-container *,
+.apf-fields-container *::before,
+.apf-fields-container *::after {
+	box-sizing: border-box;
+}
+
+.apf-fields-inner {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.apf-field-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+	position: relative;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.apf-field-wrap.apf-hidden {
+	display: none !important;
+}
+
+.apf-label {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	font-weight: 700;
+	cursor: pointer;
+	margin: 0;
+}
+
+.apf-required-mark {
+	color: #eb1400;
+	font-weight: 700;
+}
+
+.apf-description {
+	font-size: 13px;
+	margin-top: 4px;
+	line-height: 1.4;
+}
+
+.apf-char-counter {
+	font-size: 12px;
+	text-align: right;
+	margin-top: 4px;
+}
+
+/* Choices and Swatches Grid Base */
+.apf-choices-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.apf-swatches-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+	gap: 14px;
+}
+
+.apf-choice-card,
+.apf-swatch-item {
+	position: relative;
+	cursor: pointer;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apf-choice-card input[type="radio"],
+.apf-choice-card input[type="checkbox"],
+.apf-swatch-item input[type="radio"],
+.apf-swatch-item input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+/* Icon wrapper */
+.apf-icon-input-wrap {
+	position: relative;
+	width: 100%;
+}
+
+.apf-input-icon {
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+
+/* Stepper Base */
+.apf-stepper-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 15px;
+	flex-wrap: wrap;
+}
+
+.apf-stepper-control {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}

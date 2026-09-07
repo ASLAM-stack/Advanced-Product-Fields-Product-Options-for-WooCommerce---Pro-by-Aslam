@@ -1,0 +1,236 @@
+{
+  "title": "Barab Gourmet Burger & Shawarma Customizer",
+  "description": "Sample product options field group showcasing all Pro field types, Barab Fast Food Theme styling, conditional logic, and formula pricing.",
+  "rules": {
+    "apply_to": "all",
+    "products": [],
+    "categories": [],
+    "user_roles": []
+  },
+  "fields": {
+    "sec_bread": {
+      "id": "sec_bread",
+      "type": "section",
+      "label": "Step 1: Choose Your Fresh Bun / Bread",
+      "description": "All buns are toasted fresh with garlic herb butter.",
+      "pricing_type": "none",
+      "pricing_amount": 0
+    },
+    "field_bun": {
+      "id": "field_bun",
+      "type": "radio",
+      "label": "Bun Selection",
+      "description": "Select your handcrafted bun style.",
+      "required": "yes",
+      "default_value": "brioche",
+      "options": [
+        {
+          "label": "Toasted Brioche Bun",
+          "value": "brioche",
+          "pricing_type": "flat",
+          "pricing_amount": 0
+        },
+        {
+          "label": "Sesame Crust Bun",
+          "value": "sesame",
+          "pricing_type": "flat",
+          "pricing_amount": 0.50
+        },
+        {
+          "label": "Artisan Pretzel Bun",
+          "value": "pretzel",
+          "pricing_type": "flat",
+          "pricing_amount": 1.25
+        },
+        {
+          "label": "Gluten-Free Herb Roll",
+          "value": "gluten_free",
+          "pricing_type": "flat",
+          "pricing_amount": 2.00
+        }
+      ]
+    },
+    "sec_meat": {
+      "id": "sec_meat",
+      "type": "section",
+      "label": "Step 2: Signature Protein & Patty",
+      "description": "Charbroiled to perfection.",
+      "pricing_type": "none",
+      "pricing_amount": 0
+    },
+    "field_protein": {
+      "id": "field_protein",
+      "type": "image_swatch",
+      "label": "Protein Choice",
+      "description": "Choose your main protein.",
+      "required": "yes",
+      "default_value": "beef_angus",
+      "options": [
+        {
+          "label": "Angus Beef Patty",
+          "value": "beef_angus",
+          "pricing_type": "flat",
+          "pricing_amount": 0,
+          "image_url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150&auto=format&fit=crop&q=80"
+        },
+        {
+          "label": "Crispy Buttermilk Chicken",
+          "value": "crispy_chicken",
+          "pricing_type": "flat",
+          "pricing_amount": 1.00,
+          "image_url": "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=150&auto=format&fit=crop&q=80"
+        },
+        {
+          "label": "Spiced Shawarma Shreds",
+          "value": "shawarma_meat",
+          "pricing_type": "flat",
+          "pricing_amount": 1.75,
+          "image_url": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=150&auto=format&fit=crop&q=80"
+        },
+        {
+          "label": "Plant-Based Beyond Patty",
+          "value": "beyond_patty",
+          "pricing_type": "flat",
+          "pricing_amount": 2.50,
+          "image_url": "https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=150&auto=format&fit=crop&q=80"
+        }
+      ]
+    },
+    "sec_cheese": {
+      "id": "sec_cheese",
+      "type": "section",
+      "label": "Step 3: Cheese Swatches & Melt",
+      "description": "Rich melted gourmet cheeses.",
+      "pricing_type": "none",
+      "pricing_amount": 0
+    },
+    "field_add_cheese": {
+      "id": "field_add_cheese",
+      "type": "checkbox",
+      "label": "Melt Gourmet Cheese on Top?",
+      "description": "Check this to enable cheese swatches.",
+      "pricing_type": "flat",
+      "pricing_amount": 1.50,
+      "options": []
+    },
+    "field_cheese_type": {
+      "id": "field_cheese_type",
+      "type": "color_swatch",
+      "label": "Select Gourmet Cheese Blend",
+      "description": "Pick your favorite melted cheese shade.",
+      "default_value": "aged_cheddar",
+      "options": [
+        {
+          "label": "Aged Yellow Cheddar",
+          "value": "aged_cheddar",
+          "color": "#F39C12",
+          "pricing_type": "flat",
+          "pricing_amount": 0
+        },
+        {
+          "label": "Swiss Gruyere",
+          "value": "swiss_gruyere",
+          "color": "#F5EEF8",
+          "pricing_type": "flat",
+          "pricing_amount": 0.50
+        },
+        {
+          "label": "Spicy Pepper Jack",
+          "value": "pepper_jack",
+          "color": "#E67E22",
+          "pricing_type": "flat",
+          "pricing_amount": 0.75
+        },
+        {
+          "label": "Creamy Mozzarella",
+          "value": "mozzarella",
+          "color": "#FEF9E7",
+          "pricing_type": "flat",
+          "pricing_amount": 0.50
+        }
+      ],
+      "conditional_logic": {
+        "enabled": "yes",
+        "action": "show",
+        "match": "all",
+        "rules": [
+          {
+            "field": "field_add_cheese",
+            "operator": "is_not_empty",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "sec_toppings": {
+      "id": "sec_toppings",
+      "type": "section",
+      "label": "Step 4: Extra Fast-Food Toppings (Steppers)",
+      "description": "Click + and - to customize exact portions.",
+      "pricing_type": "none",
+      "pricing_amount": 0
+    },
+    "field_bacon_stepper": {
+      "id": "field_bacon_stepper",
+      "type": "stepper",
+      "label": "Crispy Smoked Bacon Strips",
+      "description": "Thick cut applewood smoked bacon.",
+      "pricing_type": "stepper",
+      "pricing_amount": 1.50,
+      "min_value": 0,
+      "max_value": 5,
+      "step": 1,
+      "default_value": 0
+    },
+    "field_mushroom_stepper": {
+      "id": "field_mushroom_stepper",
+      "type": "stepper",
+      "label": "Sauteed Garlic Mushrooms",
+      "description": "Glazed in balsamic and butter.",
+      "pricing_type": "stepper",
+      "pricing_amount": 1.25,
+      "min_value": 0,
+      "max_value": 4,
+      "step": 1,
+      "default_value": 0
+    },
+    "sec_special": {
+      "id": "sec_special",
+      "type": "section",
+      "label": "Step 5: Special Requests & Personalization",
+      "description": "Kitchen notes and custom packaging.",
+      "pricing_type": "none",
+      "pricing_amount": 0
+    },
+    "field_kitchen_notes": {
+      "id": "field_kitchen_notes",
+      "type": "textarea",
+      "label": "Kitchen Preparation Instructions",
+      "placeholder": "e.g. Extra pickles, sauce on the side, well done...",
+      "max_length": 150,
+      "pricing_type": "none",
+      "pricing_amount": 0
+    },
+    "field_box_engraving": {
+      "id": "field_box_engraving",
+      "type": "text",
+      "label": "Custom Printed Message on Burger Box",
+      "placeholder": "e.g. Happy Birthday Alex! Enjoy your feast!",
+      "max_length": 60,
+      "pricing_type": "char_count",
+      "pricing_amount": 0.20,
+      "free_characters": 10,
+      "description": "First 10 characters are FREE! Each additional letter is just $0.20."
+    },
+    "field_custom_sticker": {
+      "id": "field_custom_sticker",
+      "type": "file_upload",
+      "label": "Upload Custom Party Logo / Photo Sticker",
+      "description": "Upload an image (PNG, JPG, WebP) to print on your packaging.",
+      "allowed_extensions": "jpg,jpeg,png,webp,pdf",
+      "max_file_size_mb": 5,
+      "pricing_type": "flat",
+      "pricing_amount": 2.50
+    }
+  }
+}

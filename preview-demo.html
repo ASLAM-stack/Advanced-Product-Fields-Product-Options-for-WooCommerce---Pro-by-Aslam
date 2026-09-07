@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Advanced Product Fields by Aslam — Barab Theme Live Demo</title>
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<!-- Font Awesome 6 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<!-- Plugin CSS -->
+	<link rel="stylesheet" href="public/css/apf-frontend-base.css">
+	<link rel="stylesheet" href="public/css/apf-frontend-barab.css">
+	<style>
+		body {
+			background: #faf7ef;
+			font-family: 'Inter', sans-serif;
+			margin: 0;
+			padding: 40px 20px;
+			color: #121212;
+		}
+		.demo-container {
+			max-width: 900px;
+			margin: 0 auto;
+			background: #ffffff;
+			border-radius: 28px;
+			box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+			padding: 40px;
+			border: 1px solid #ebdcc5;
+		}
+		.demo-hero {
+			display: flex;
+			gap: 30px;
+			align-items: center;
+			border-bottom: 2px dashed #ebdcc5;
+			padding-bottom: 30px;
+			margin-bottom: 30px;
+		}
+		.demo-hero-img {
+			width: 180px;
+			height: 180px;
+			border-radius: 24px;
+			object-fit: cover;
+			box-shadow: 0 10px 25px rgba(235, 20, 0, 0.15);
+		}
+		.demo-hero-info h1 {
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 38px;
+			margin: 0 0 10px 0;
+			text-transform: uppercase;
+			color: #121212;
+			letter-spacing: 0.5px;
+		}
+		.demo-badge {
+			display: inline-block;
+			background: #EB1400;
+			color: #ffffff;
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 13px;
+			font-weight: 700;
+			padding: 4px 14px;
+			border-radius: 50px;
+			text-transform: uppercase;
+			margin-bottom: 10px;
+		}
+		.demo-price {
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 32px;
+			font-weight: 800;
+			color: #EB1400;
+		}
+		.demo-style-toolbar {
+			background: #f7f2e2;
+			border-radius: 16px;
+			padding: 15px 20px;
+			margin-bottom: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 15px;
+		}
+		.demo-style-toolbar strong {
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 18px;
+			text-transform: uppercase;
+		}
+		.demo-preset-btn {
+			padding: 8px 16px;
+			border-radius: 50px;
+			border: 2px solid #121212;
+			background: #fff;
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 14px;
+			font-weight: 700;
+			cursor: pointer;
+			text-transform: uppercase;
+			transition: all 0.2s;
+		}
+		.demo-preset-btn.active,
+		.demo-preset-btn:hover {
+			background: #EB1400;
+			color: #fff;
+			border-color: #EB1400;
+		}
+	</style>
+</head>
+<body>
+
+<div class="demo-container">
+	<!-- Top Barab Food Hero -->
+	<div class="demo-hero">
+		<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=80" alt="Burger" class="demo-hero-img">
+		<div class="demo-hero-info">
+			<span class="demo-badge"><i class="fa-solid fa-fire"></i> Barab Theme Signature</span>
+			<h1>The Ultimate Monster Shawarma Burger</h1>
+			<p style="color: #6c6c6c; margin: 0 0 12px 0;">Hand-smashed double patty topped with slow-roasted chicken shawarma, signature garlic toum, and artisanal brioche.</p>
+			<div class="summary"><div class="price"><span class="woocommerce-Price-amount">$12.00</span></div></div>
+		</div>
+	</div>
+
+	<!-- Live Style Switcher Toolbar -->
+	<div class="demo-style-toolbar">
+		<div>
+			<strong><i class="fa-solid fa-sliders"></i> Test Live Theme Preset:</strong>
+		</div>
+		<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+			<button type="button" class="demo-preset-btn active" onclick="applyPreset('barab')">Barab Red (Default)</button>
+			<button type="button" class="demo-preset-btn" onclick="applyPreset('dark')">Dark Grill BBQ</button>
+			<button type="button" class="demo-preset-btn" onclick="applyPreset('green')">Fresh Basil Bistro</button>
+		</div>
+	</div>
+
+	<!-- Advanced Product Fields Form Container -->
+	<div class="apf-fields-container barab-theme-wrap swatch-layout-cards" data-product-id="101" data-base-price="12.00">
+		<div class="apf-fields-inner">
+
+			<!-- Step 1: Bun Radio Pills -->
+			<div class="apf-field-wrap apf-type-section" id="apf-wrap-sec_1" data-field-id="sec_1" data-field-type="section">
+				<div class="apf-section-divider">
+					<h4 class="apf-section-title"><span class="apf-section-pill"></span> Step 1: Choose Your Fresh Bun</h4>
+					<div class="apf-section-desc">Toasted with garlic herb butter.</div>
+				</div>
+			</div>
+
+			<div class="apf-field-wrap apf-type-radio" id="apf-wrap-field_bun" data-field-id="field_bun" data-field-type="radio" data-required="yes">
+				<label class="apf-label"><span class="apf-label-text">Select Bun Style</span> <span class="apf-required-mark">*</span></label>
+				<div class="apf-choices-wrap apf-radio-group">
+					<label class="apf-choice-card apf-radio-card selected" for="bun_brioche">
+						<input type="radio" name="apf[field_bun]" id="bun_brioche" value="brioche" data-price="0" data-pricing-type="flat" checked>
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Toasted Brioche Bun</span>
+					</label>
+					<label class="apf-choice-card apf-radio-card" for="bun_sesame">
+						<input type="radio" name="apf[field_bun]" id="bun_sesame" value="sesame" data-price="0.75" data-pricing-type="flat">
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Sesame Seed Bun</span>
+						<span class="apf-price-badge">+ $0.75</span>
+					</label>
+					<label class="apf-choice-card apf-radio-card" for="bun_pretzel">
+						<input type="radio" name="apf[field_bun]" id="bun_pretzel" value="pretzel" data-price="1.50" data-pricing-type="flat">
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Bavarian Pretzel Bun</span>
+						<span class="apf-price-badge">+ $1.50</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- Step 2: Protein Image Swatches -->
+			<div class="apf-field-wrap apf-type-section" id="apf-wrap-sec_2" data-field-id="sec_2" data-field-type="section">
+				<div class="apf-section-divider">
+					<h4 class="apf-section-title"><span class="apf-section-pill"></span> Step 2: Signature Protein & Patty (Image Swatches)</h4>
+					<div class="apf-section-desc">Select your handcrafted protein.</div>
+				</div>
+			</div>
+
+			<div class="apf-field-wrap apf-type-image-swatch" id="apf-wrap-field_meat" data-field-id="field_meat" data-field-type="image_swatch">
+				<label class="apf-label">
+					<span class="apf-label-text">Choose Protein</span>
+					<span class="apf-selected-swatch-name">— Angus Beef Patty</span>
+				</label>
+				<div class="apf-swatches-grid apf-image-swatches">
+					<label class="apf-swatch-item apf-image-item selected" for="meat_angus">
+						<input type="radio" name="apf[field_meat]" id="meat_angus" value="angus" data-price="0" data-pricing-type="flat" data-label="Angus Beef Patty" checked>
+						<div class="apf-image-thumb-wrap">
+							<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150&auto=format&fit=crop&q=80" class="apf-image-thumb" alt="Angus">
+							<span class="apf-image-check-icon"><i class="fa-solid fa-check"></i></span>
+						</div>
+						<div class="apf-image-details">
+							<span class="apf-swatch-title">Angus Beef</span>
+						</div>
+					</label>
+
+					<label class="apf-swatch-item apf-image-item" for="meat_chicken">
+						<input type="radio" name="apf[field_meat]" id="meat_chicken" value="chicken" data-price="1.00" data-pricing-type="flat" data-label="Crispy Chicken">
+						<div class="apf-image-thumb-wrap">
+							<img src="https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=150&auto=format&fit=crop&q=80" class="apf-image-thumb" alt="Chicken">
+							<span class="apf-image-check-icon"><i class="fa-solid fa-check"></i></span>
+						</div>
+						<div class="apf-image-details">
+							<span class="apf-swatch-title">Crispy Chicken</span>
+							<span class="apf-price-badge">+ $1.00</span>
+						</div>
+					</label>
+
+					<label class="apf-swatch-item apf-image-item" for="meat_shawarma">
+						<input type="radio" name="apf[field_meat]" id="meat_shawarma" value="shawarma" data-price="2.00" data-pricing-type="flat" data-label="Spiced Shawarma">
+						<div class="apf-image-thumb-wrap">
+							<img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=150&auto=format&fit=crop&q=80" class="apf-image-thumb" alt="Shawarma">
+							<span class="apf-image-check-icon"><i class="fa-solid fa-check"></i></span>
+						</div>
+						<div class="apf-image-details">
+							<span class="apf-swatch-title">Shawarma Meat</span>
+							<span class="apf-price-badge">+ $2.00</span>
+						</div>
+					</label>
+				</div>
+			</div>
+
+			<!-- Step 3: Conditional Logic & Color Swatches -->
+			<div class="apf-field-wrap apf-type-section" id="apf-wrap-sec_3" data-field-id="sec_3" data-field-type="section">
+				<div class="apf-section-divider">
+					<h4 class="apf-section-title"><span class="apf-section-pill"></span> Step 3: Melted Cheese & Conditional Logic</h4>
+					<div class="apf-section-desc">Toggle checkbox to reveal color swatches dynamically.</div>
+				</div>
+			</div>
+
+			<div class="apf-field-wrap apf-type-checkbox" id="apf-wrap-field_cheese_toggle" data-field-id="field_cheese_toggle" data-field-type="checkbox">
+				<label class="apf-label"><span class="apf-label-text">Add Melted Gourmet Cheese?</span></label>
+				<div class="apf-choices-wrap">
+					<label class="apf-choice-card apf-checkbox-card" for="chk_cheese">
+						<input type="checkbox" name="apf[field_cheese_toggle]" id="chk_cheese" value="yes" data-price="1.50" data-pricing-type="flat">
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Yes, melt artisan cheese on top!</span>
+						<span class="apf-price-badge">+ $1.50</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- Dependent Color Swatches (Shows only when checkbox is checked!) -->
+			<div class="apf-field-wrap apf-type-color-swatch apf-hidden" id="apf-wrap-field_cheese_type" data-field-id="field_cheese_type" data-field-type="color_swatch" data-conditions='{"enabled":"yes","action":"show","match":"all","rules":[{"field":"field_cheese_toggle","operator":"is","value":"yes"}]}'>
+				<label class="apf-label">
+					<span class="apf-label-text">Select Cheese Blend</span>
+					<span class="apf-selected-swatch-name"></span>
+				</label>
+				<div class="apf-color-swatches">
+					<label class="apf-swatch-item apf-color-item" for="c_cheddar">
+						<input type="radio" name="apf[field_cheese_type]" id="c_cheddar" value="cheddar" data-price="0" data-pricing-type="flat" data-label="Aged Yellow Cheddar">
+						<span class="apf-color-circle" style="background-color: #F39C12;"><i class="fa-solid fa-check apf-swatch-check"></i></span>
+						<span class="apf-swatch-title">Cheddar</span>
+					</label>
+					<label class="apf-swatch-item apf-color-item" for="c_swiss">
+						<input type="radio" name="apf[field_cheese_type]" id="c_swiss" value="swiss" data-price="0.50" data-pricing-type="flat" data-label="Swiss Gruyere">
+						<span class="apf-color-circle" style="background-color: #F5EEF8;"><i class="fa-solid fa-check apf-swatch-check"></i></span>
+						<span class="apf-swatch-title">Swiss</span>
+						<span class="apf-price-badge">+ $0.50</span>
+					</label>
+					<label class="apf-swatch-item apf-color-item" for="c_pepper">
+						<input type="radio" name="apf[field_cheese_type]" id="c_pepper" value="pepper" data-price="0.75" data-pricing-type="flat" data-label="Spicy Pepper Jack">
+						<span class="apf-color-circle" style="background-color: #E67E22;"><i class="fa-solid fa-check apf-swatch-check"></i></span>
+						<span class="apf-swatch-title">Pepper Jack</span>
+						<span class="apf-price-badge">+ $0.75</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- Multi-Select Checkboxes Group (Pro Feature) -->
+			<div class="apf-field-wrap apf-type-checkbox" id="apf-wrap-field_sauces" data-field-id="field_sauces" data-field-type="checkbox">
+				<label class="apf-label"><span class="apf-label-text">Select Gourmet Sauces (Multi-Select Checkboxes)</span></label>
+				<div class="apf-choices-wrap apf-checkbox-group">
+					<label class="apf-choice-card apf-checkbox-card" for="chk_garlic_toum">
+						<input type="checkbox" name="apf[field_sauces][]" id="chk_garlic_toum" value="garlic_toum" data-price="0.75" data-pricing-type="flat">
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Garlic Toum Aioli</span>
+						<span class="apf-price-badge">+ $0.75</span>
+					</label>
+					<label class="apf-choice-card apf-checkbox-card" for="chk_tahini">
+						<input type="checkbox" name="apf[field_sauces][]" id="chk_tahini" value="tahini" data-price="0.50" data-pricing-type="flat">
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Artisan Tahini</span>
+						<span class="apf-price-badge">+ $0.50</span>
+					</label>
+					<label class="apf-choice-card apf-checkbox-card" for="chk_harissa">
+						<input type="checkbox" name="apf[field_sauces][]" id="chk_harissa" value="harissa" data-price="0.80" data-pricing-type="flat">
+						<span class="apf-card-indicator"><i class="fa-solid fa-check"></i></span>
+						<span class="apf-card-label">Fiery Harissa Mayo</span>
+						<span class="apf-price-badge">+ $0.80</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- Step 4: Addon Quantity Steppers -->
+			<div class="apf-field-wrap apf-type-section" id="apf-wrap-sec_4" data-field-id="sec_4" data-field-type="section">
+				<div class="apf-section-divider">
+					<h4 class="apf-section-title"><span class="apf-section-pill"></span> Step 4: Extra Fast-Food Toppings (+/- Steppers)</h4>
+					<div class="apf-section-desc">Click circular + and - buttons to adjust exact portions.</div>
+				</div>
+			</div>
+
+			<div class="apf-field-wrap apf-type-stepper" id="apf-wrap-step_bacon" data-field-id="step_bacon" data-field-type="stepper" data-pricing-type="stepper" data-pricing-amount="1.50" data-min="0" data-max="5" data-step="1">
+				<div class="apf-stepper-row">
+					<div class="apf-stepper-info">
+						<span class="apf-label-text">Crispy Smoked Bacon Strips</span>
+						<span class="apf-stepper-unit-price">+ $1.50 each</span>
+						<div class="apf-description">Thick applewood smoked bacon.</div>
+					</div>
+					<div class="apf-stepper-control">
+						<button type="button" class="apf-step-btn apf-step-down"><i class="fa-solid fa-minus"></i></button>
+						<input type="number" name="apf[step_bacon]" class="apf-stepper-input" value="0" min="0" max="5" readonly>
+						<button type="button" class="apf-step-btn apf-step-up"><i class="fa-solid fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+
+			<div class="apf-field-wrap apf-type-stepper" id="apf-wrap-step_mush" data-field-id="step_mush" data-field-type="stepper" data-pricing-type="stepper" data-pricing-amount="1.25" data-min="0" data-max="4" data-step="1">
+				<div class="apf-stepper-row">
+					<div class="apf-stepper-info">
+						<span class="apf-label-text">Garlic Butter Sauteed Mushrooms</span>
+						<span class="apf-stepper-unit-price">+ $1.25 each</span>
+					</div>
+					<div class="apf-stepper-control">
+						<button type="button" class="apf-step-btn apf-step-down"><i class="fa-solid fa-minus"></i></button>
+						<input type="number" name="apf[step_mush]" class="apf-stepper-input" value="0" min="0" max="4" readonly>
+						<button type="button" class="apf-step-btn apf-step-up"><i class="fa-solid fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Step 5: Character Count Pricing Text Field -->
+			<div class="apf-field-wrap apf-type-section" id="apf-wrap-sec_5" data-field-id="sec_5" data-field-type="section">
+				<div class="apf-section-divider">
+					<h4 class="apf-section-title"><span class="apf-section-pill"></span> Step 5: Character-Count Box Printing (Pro)</h4>
+					<div class="apf-section-desc">First 10 characters are FREE! Extra characters are $0.20 each.</div>
+				</div>
+			</div>
+
+			<div class="apf-field-wrap apf-type-text" id="apf-wrap-field_msg" data-field-id="field_msg" data-field-type="text" data-pricing-type="char_count" data-pricing-amount="0.20" data-free-chars="10">
+				<label class="apf-label"><span class="apf-label-text">Custom Printed Message on Box</span></label>
+				<div class="apf-input-wrapper">
+					<input type="text" name="apf[field_msg]" class="apf-input" maxlength="40" placeholder="e.g. Best Chef Shawarma Burger!">
+				</div>
+				<div class="apf-char-counter"><span class="apf-char-count">0</span> / 40 characters</div>
+			</div>
+
+		</div><!-- /.apf-fields-inner -->
+
+		<!-- Live Fast-Food Order Summary Card -->
+		<div class="apf-order-summary-card barab-receipt-card" id="apf-order-summary">
+			<div class="apf-receipt-header">
+				<div class="apf-receipt-title">
+					<i class="fa-solid fa-receipt"></i>
+					<span>Your Custom Order Summary</span>
+				</div>
+				<span class="apf-receipt-badge">Live Calculation</span>
+			</div>
+			<div class="apf-receipt-body">
+				<div class="apf-receipt-row apf-row-base">
+					<span class="apf-item-name">Base Burger</span>
+					<span class="apf-item-cost" id="apf-summary-base-price">$12.00</span>
+				</div>
+				<div class="apf-summary-options-list" id="apf-summary-options-list" style="display: none;"></div>
+				<div class="apf-receipt-dashed-line"></div>
+				<div class="apf-receipt-row apf-row-addons">
+					<span class="apf-item-name">Selected Add-ons</span>
+					<span class="apf-item-cost" id="apf-summary-addons-total">$0.00</span>
+				</div>
+				<div class="apf-receipt-row apf-row-grand-total">
+					<span class="apf-item-name"><strong>Total Per Burger</strong></span>
+					<span class="apf-item-cost apf-grand-total-highlight" id="apf-summary-grand-total">$12.00</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Add to Cart CTA -->
+		<div style="margin-top: 25px;">
+			<button type="button" class="button button-hero" style="width: 100%; height: 60px; border-radius: 50px; background: var(--apf-primary); color: #fff; border: none; font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; box-shadow: 0 10px 25px rgba(235, 20, 0, 0.3);">
+				<i class="fa-solid fa-cart-plus"></i> Add Customized Burger to Cart
+			</button>
+		</div>
+
+	</div><!-- /.apf-fields-container -->
+</div>
+
+<!-- jQuery and Plugin JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	// Mock apfParams for standalone demo environment
+	window.apfParams = {
+		currency_symbol: '$',
+		currency_pos: 'left',
+		decimals: 2,
+		decimal_sep: '.',
+		thousand_sep: ',',
+		ajax_url: '#',
+		nonce: 'demo_nonce',
+		i18n: {
+			upload_error: 'Upload demo error',
+			order_total: 'Order Total'
+		}
+	};
+
+	// Live preset switcher for testing
+	function applyPreset(name) {
+		$('.demo-preset-btn').removeClass('active');
+		$('button[onclick="applyPreset(\'' + name + '\')"]').addClass('active');
+
+		var root = document.documentElement;
+		if (name === 'barab') {
+			root.style.setProperty('--apf-primary', '#EB1400');
+			root.style.setProperty('--apf-secondary', '#3F9065');
+			root.style.setProperty('--apf-accent', '#FF9924');
+			root.style.setProperty('--apf-bg', '#F7F2E2');
+			root.style.setProperty('--apf-badge-bg', '#FDE1B9');
+			root.style.setProperty('--apf-radius', '50px');
+		} else if (name === 'dark') {
+			root.style.setProperty('--apf-primary', '#FF5722');
+			root.style.setProperty('--apf-secondary', '#FF9800');
+			root.style.setProperty('--apf-accent', '#FFC107');
+			root.style.setProperty('--apf-bg', '#1E2125');
+			root.style.setProperty('--apf-badge-bg', '#2C3036');
+			root.style.setProperty('--apf-radius', '16px');
+		} else if (name === 'green') {
+			root.style.setProperty('--apf-primary', '#2E7D32');
+			root.style.setProperty('--apf-secondary', '#388E3C');
+			root.style.setProperty('--apf-accent', '#81C784');
+			root.style.setProperty('--apf-bg', '#F1F8E9');
+			root.style.setProperty('--apf-badge-bg', '#C8E6C9');
+			root.style.setProperty('--apf-radius', '12px');
+		}
+	}
+</script>
+<script src="public/js/apf-frontend.js"></script>
+
+</body>
+</html>
