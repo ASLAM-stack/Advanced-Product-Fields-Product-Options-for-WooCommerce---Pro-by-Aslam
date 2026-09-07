@@ -464,7 +464,8 @@
 			var $progress = $wrap.find('.apf-upload-progress');
 			var $bar      = $wrap.find('.apf-progress-fill');
 			var fieldId   = $wrap.data('field-id');
-			var productId = $container.data('product-id');
+			var productId = $wrap.closest('.apf-fields-container').data('product-id') || $container.data('product-id') || 0;
+			var defaultThumb = $preview.find('.apf-preview-thumb').html();
 
 			$box.on('click', function() {
 				$fileInp.trigger('click');
@@ -554,6 +555,7 @@
 				$dataVal.val('');
 				$progress.hide();
 				$bar.css('width', '0%');
+				$preview.find('.apf-preview-thumb').html(defaultThumb);
 				$box.find('.apf-dropzone-content').show();
 				$box.show();
 				$preview.hide();

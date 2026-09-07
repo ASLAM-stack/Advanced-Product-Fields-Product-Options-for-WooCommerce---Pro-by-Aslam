@@ -203,9 +203,14 @@ class APF_Fields_Manager {
 	 * @return string HTML output.
 	 */
 	public function render_field( $field, $product_id ) {
-		$type = sanitize_key( $field['type'] ?? 'text' );
-		$template_file = APF_ASLAM_PATH . "public/templates/field-{$type}.php";
+		$type      = sanitize_key( $field['type'] ?? 'text' );
+		$dash_type = str_replace( '_', '-', $type );
 
+		// Check hyphenated version (e.g. field-color-swatch.php), then underscored (e.g. field-color_swatch.php).
+		$template_file = APF_ASLAM_PATH . "public/templates/field-{$dash_type}.php";
+		if ( ! file_exists( $template_file ) ) {
+			$template_file = APF_ASLAM_PATH . "public/templates/field-{$type}.php";
+		}
 		if ( ! file_exists( $template_file ) ) {
 			$template_file = APF_ASLAM_PATH . 'public/templates/field-text.php';
 		}

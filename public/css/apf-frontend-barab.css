@@ -265,11 +265,13 @@
 	justify-content: center;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 	border: 3px solid #ffffff;
+	outline: 1px solid rgba(0, 0, 0, 0.1);
 	position: relative;
 	transition: all 0.2s ease;
 }
 
-.apf-swatch-check {
+.apf-swatch-check,
+.apf-swatch-check-svg {
 	color: #ffffff;
 	font-size: 14px;
 	opacity: 0;
@@ -284,7 +286,9 @@
 }
 
 .apf-color-item.selected .apf-swatch-check,
-.apf-color-item:has(input:checked) .apf-swatch-check {
+.apf-color-item:has(input:checked) .apf-swatch-check,
+.apf-color-item.selected .apf-swatch-check-svg,
+.apf-color-item:has(input:checked) .apf-swatch-check-svg {
 	opacity: 1;
 	transform: scale(1);
 }
@@ -303,6 +307,9 @@
 }
 
 .apf-image-item {
+	display: flex;
+	width: 100%;
+	box-sizing: border-box;
 	flex-direction: column;
 	background: var(--apf-bg);
 	border: 2px solid transparent;
@@ -464,6 +471,18 @@
 	font-size: 36px;
 	color: var(--apf-primary);
 	margin-bottom: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.apf-dropzone-icon svg {
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apf-dropzone-box:hover .apf-dropzone-icon svg,
+.apf-dropzone-box.dragover .apf-dropzone-icon svg {
+	transform: translateY(-5px) scale(1.08);
 }
 
 .apf-dropzone-title strong {
@@ -519,6 +538,9 @@
 .apf-preview-thumb {
 	color: var(--apf-secondary);
 	font-size: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .apf-preview-info {
@@ -526,10 +548,15 @@
 	display: flex;
 	flex-direction: column;
 	font-size: 13px;
+	overflow: hidden;
 }
 
 .apf-filename {
-	font-weight: 600;
+	font-weight: 700;
+	color: var(--apf-text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .apf-filesize {
@@ -543,7 +570,26 @@
 	color: #eb1400;
 	font-size: 18px;
 	cursor: pointer;
-	padding: 0;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.2s ease;
+}
+
+.apf-btn-remove-uploaded:hover {
+	transform: scale(1.15);
+}
+
+.apf-no-options-notice {
+	color: var(--apf-body-text);
+	font-size: 14px;
+	font-style: italic;
+	padding: 12px 18px;
+	background: var(--apf-bg);
+	border-radius: var(--apf-radius);
+	width: 100%;
+	box-sizing: border-box;
 }
 
 /* Section Header / Divider */

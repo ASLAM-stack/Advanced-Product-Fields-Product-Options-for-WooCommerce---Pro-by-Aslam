@@ -361,9 +361,15 @@ class APF_Cart {
 		}
 
 		if ( 'file_upload' === $type ) {
+			if ( is_string( $val ) && ! empty( $val ) ) {
+				$decoded = json_decode( stripslashes( $val ), true );
+				if ( is_array( $decoded ) && ! empty( $decoded['url'] ) ) {
+					$val = $decoded;
+				}
+			}
 			if ( is_array( $val ) && ! empty( $val['url'] ) ) {
-				$file_name = basename( $val['url'] );
-				return '<a href="' . esc_url( $val['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $file_name ) . '</a>';
+				$file_name = ! empty( $val['name'] ) ? $val['name'] : basename( $val['url'] );
+				return '<a href="' . esc_url( $val['url'] ) . '" target="_blank" rel="noopener" class="apf-cart-file-link">' . esc_html( $file_name ) . '</a>';
 			}
 			return esc_html( (string) $val );
 		}
