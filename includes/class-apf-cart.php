@@ -35,6 +35,9 @@ class APF_Cart {
 
 		// Preserve custom options during re-ordering.
 		add_filter( 'woocommerce_order_again_cart_item_data', array( $this, 'order_again_cart_item_data' ), 10, 3 );
+
+		// Store API / WooCommerce Cart & Checkout Blocks integration.
+		add_action( 'woocommerce_blocks_loaded', array( $this, 'register_store_api_data' ) );
 	}
 
 	/**
@@ -261,10 +264,14 @@ class APF_Cart {
 			$rule_matched = false;
 			switch ( $operator ) {
 				case 'is':
-					$rule_matched = ( (string) $actual_val === (string) $target_val );
+					$rule_matched = is_array( $actual_val )
+						? in_array( (string) $target_val, array_map( 'strval', $actual_val ), true )
+						: ( (string) $actual_val === (string) $target_val );
 					break;
 				case 'is_not':
-					$rule_matched = ( (string) $actual_val !== (string) $target_val );
+					$rule_matched = is_array( $actual_val )
+						? ! in_array( (string) $target_val, array_map( 'strval', $actual_val ), true )
+						: ( (string) $actual_val !== (string) $target_val );
 					break;
 				case 'is_empty':
 					$rule_matched = ( is_null( $actual_val ) || '' === $actual_val );
@@ -384,5 +391,82 @@ class APF_Cart {
 			$cart_item_data['unique_key']      = md5( microtime() . wp_json_encode( $apf_meta ) );
 		}
 		return $cart_item_data;
+	}
+
+	/**
+	 * Register Store API data for WooCommerce Blocks (Cart & Checkout blocks).
+	 */
+	public function register_store_api_data() {
+		if ( ! function_exists( 'woocommerce_store_api_register_endpoint_data' ) ) {
+			return;
+		}
+
+		$endpoint_identifier = class_exists( '\Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema' )
+			? \Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema::IDENTIFIER
+			: 'cart/items';
+
+		woocommerce_store_api_register_endpoint_data(
+			array(
+				'endpoint'        => $endpoint_identifier,
+				'namespace'       => 'apf_options',
+				'data_callback'   => array( $this, 'get_store_api_cart_item_data' ),
+				'schema_callback' => array( $this, 'get_store_api_cart_item_schema' ),
+				'schema_type'     => ARRAY_A,
+			)
+		);
+	}
+
+	/**
+	 * Format cart item options for Store API responses.
+	 *
+	 * @param array $cart_item Cart item data.
+	 * @return array
+	 */
+	public function get_store_api_cart_item_data( $cart_item ) {
+		$data = array();
+		if ( ! empty( $cart_item['apf_options'] ) && is_array( $cart_item['apf_options'] ) ) {
+			foreach ( $cart_item['apf_options'] as $option ) {
+				$price_label = '';
+				if ( ! empty( $option['price_delta'] ) && 0.0 != $option['price_delta'] ) {
+					$sign        = $option['price_delta'] > 0 ? '+' : '-';
+					$price_label = ' (' . $sign . wc_price( abs( $option['price_delta'] ) ) . ')';
+				}
+
+				$data[] = array(
+					'id'            => sanitize_key( $option['id'] ?? '' ),
+					'label'         => sanitize_text_field( $option['label'] ?? '' ),
+					'value'         => is_array( $option['value'] ?? '' ) ? implode( ', ', $option['value'] ) : sanitize_text_field( (string) ( $option['value'] ?? '' ) ),
+					'display_value' => wp_strip_all_tags( ( $option['display_value'] ?? '' ) . $price_label ),
+					'price_delta'   => floatval( $option['price_delta'] ?? 0 ),
+				);
+			}
+		}
+		return array( 'options' => $data );
+	}
+
+	/**
+	 * Store API schema for cart item options.
+	 *
+	 * @return array
+	 */
+	public function get_store_api_cart_item_schema() {
+		return array(
+			'options' => array(
+				'description' => __( 'Advanced Product Fields options', 'apf-aslam' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'readonly'    => true,
+				'items'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'id'            => array( 'type' => 'string' ),
+						'label'         => array( 'type' => 'string' ),
+						'value'         => array( 'type' => 'string' ),
+						'display_value' => array( 'type' => 'string' ),
+						'price_delta'   => array( 'type' => 'number' ),
+					),
+				),
+			),
+		);
 	}
 }

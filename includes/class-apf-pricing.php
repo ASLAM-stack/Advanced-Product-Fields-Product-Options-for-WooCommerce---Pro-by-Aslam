@@ -89,7 +89,7 @@ class APF_Pricing {
 
 		// 4. Character count pricing (for text & textarea).
 		if ( in_array( $type, array( 'text', 'textarea' ), true ) && 'char_count' === ( $field['pricing_type'] ?? '' ) ) {
-			$char_len        = mb_strlen( (string) $value );
+			$char_len        = function_exists( 'mb_strlen' ) ? mb_strlen( (string) $value, 'UTF-8' ) : strlen( (string) $value );
 			$free_characters = absint( $field['free_characters'] ?? 0 );
 			$billable_chars  = max( 0, $char_len - $free_characters );
 			$per_char_price  = floatval( $field['pricing_amount'] ?? 0 );

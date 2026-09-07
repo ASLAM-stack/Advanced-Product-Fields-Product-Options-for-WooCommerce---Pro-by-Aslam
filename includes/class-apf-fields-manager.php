@@ -113,6 +113,11 @@ class APF_Fields_Manager {
 	 * @return array Array of fields.
 	 */
 	public function get_fields_for_product( $product_id ) {
+		static $cache = array();
+		if ( isset( $cache[ $product_id ] ) ) {
+			return $cache[ $product_id ];
+		}
+
 		$fields = array();
 
 		// 1. Fetch Global Field Groups.
@@ -185,7 +190,9 @@ class APF_Fields_Manager {
 			}
 		}
 
-		return apply_filters( 'apf_fields_for_product', $fields, $product_id );
+		$filtered_fields = apply_filters( 'apf_fields_for_product', $fields, $product_id );
+		$cache[ $product_id ] = $filtered_fields;
+		return $filtered_fields;
 	}
 
 	/**
@@ -248,7 +255,7 @@ class APF_Fields_Manager {
 
 		// 3. Text length validation.
 		if ( in_array( $field['type'], array( 'text', 'textarea' ), true ) ) {
-			$len = mb_strlen( (string) $value );
+			$len = function_exists( 'mb_strlen' ) ? mb_strlen( (string) $value, 'UTF-8' ) : strlen( (string) $value );
 			if ( ! empty( $field['max_length'] ) && $len > absint( $field['max_length'] ) ) {
 				return new WP_Error( 'apf_max_len', sprintf( __( '"%s" cannot exceed %d characters.', 'apf-aslam' ), esc_html( $label ), $field['max_length'] ) );
 			}

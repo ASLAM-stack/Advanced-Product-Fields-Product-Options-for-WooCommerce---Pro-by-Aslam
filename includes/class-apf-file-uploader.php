@@ -72,7 +72,7 @@ class APF_File_Uploader {
 		$ext       = strtolower( $file_info['ext'] );
 
 		// Strict security: Block any server-side script extensions regardless of settings.
-		$forbidden_exts = array( 'php', 'php3', 'php4', 'php5', 'phtml', 'phps', 'exe', 'sh', 'pl', 'cgi', 'py', 'asp', 'aspx', 'jsp', 'js', 'html', 'htm' );
+		$forbidden_exts = array( 'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'phps', 'phar', 'pht', 'shtml', 'exe', 'sh', 'pl', 'cgi', 'py', 'asp', 'aspx', 'jsp', 'js', 'html', 'htm' );
 		if ( empty( $ext ) || in_array( $ext, $forbidden_exts, true ) || ! in_array( $ext, $allowed_exts, true ) ) {
 			wp_send_json_error( array( 'message' => sprintf( __( 'Invalid file extension. Allowed types: %s', 'apf-aslam' ), implode( ', ', $allowed_exts ) ) ) );
 		}

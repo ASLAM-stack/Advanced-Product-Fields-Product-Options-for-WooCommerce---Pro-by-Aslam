@@ -355,11 +355,11 @@
 			$list.empty();
 			if (breakdownList.length) {
 				breakdownList.forEach(function(item) {
-					var row = '<div class="apf-summary-option-line">' +
-						'<span class="opt-name">' + item.name + '</span>' +
-						'<span class="opt-cost">' + (item.price > 0 ? '+' : '') + formatPrice(item.price) + '</span>' +
-					'</div>';
-					$list.append(row);
+					var $row = $('<div class="apf-summary-option-line"></div>');
+					var $optName = $('<span class="opt-name"></span>').text(item.name);
+					var $optCost = $('<span class="opt-cost"></span>').text((item.price > 0 ? '+' : '') + formatPrice(item.price));
+					$row.append($optName).append($optCost);
+					$list.append($row);
 				});
 				$list.show();
 			} else {

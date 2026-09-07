@@ -325,14 +325,19 @@
 			});
 		}
 
+		function escapeHtml(str) {
+			return $('<div>').text(str || '').html();
+		}
+
 		function populateFieldsForSelect($select, excludeFieldId, selectedVal) {
 			var optionsHtml = '<option value="">-- Select Field --</option>';
 			$('.apf-field-card').each(function() {
 				var fid = $(this).data('field-id');
 				if (fid !== excludeFieldId) {
-					var label = $(this).find('.apf-field-label-input').val().trim() || fid;
+					var rawLabel = $(this).find('.apf-field-label-input').val();
+					var label = (rawLabel && rawLabel.trim()) ? rawLabel.trim() : fid;
 					var isSel = (fid === selectedVal) ? ' selected' : '';
-					optionsHtml += '<option value="' + fid + '"' + isSel + '>' + label + '</option>';
+					optionsHtml += '<option value="' + escapeHtml(fid) + '"' + isSel + '>' + escapeHtml(label) + '</option>';
 				}
 			});
 			$select.html(optionsHtml);
